@@ -1,6 +1,6 @@
 import { verifyToken } from "../utils/jwt.js";
 
-export const authenticate = (req, res, next) => {
+export const authMiddleware = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 

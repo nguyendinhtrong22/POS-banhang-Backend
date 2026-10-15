@@ -9,6 +9,9 @@ import customerRoutes from "./routes/customer.routes.js";
 import orderRoutes from "./routes/order.routes.js";
 import orderItemRoutes from "./routes/orderItem.routes.js";
 import salesRoutes from "./routes/sales.routes.js";
+import cartRoutes from "./routes/cart.routes.js";
+import cartItemRoutes from "./routes/cartItem.routes.js";
+import salesHistoryRoutes from "./routes/salesHistory.routes.js";
 
 dotenv.config();
 
@@ -24,6 +27,9 @@ app.use("/api/customers", customerRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/order-items", orderItemRoutes);
 app.use("/api/sales", salesRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/cart-items", cartItemRoutes);
+app.use("/api/sales-history", salesHistoryRoutes);
 
 
 app.get("/", (req, res) => {

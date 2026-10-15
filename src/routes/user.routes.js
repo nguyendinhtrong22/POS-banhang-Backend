@@ -1,9 +1,9 @@
 import express from "express";
-import { authenticate } from "../middlewares/auth.middleware.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-router.get("/profile", authenticate, (req, res) => {
+router.get("/profile", authMiddleware, (req, res) => {
   return res.status(200).json({
     message: "Xác thực thành công",
     user: req.user,

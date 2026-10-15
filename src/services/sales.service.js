@@ -84,13 +84,11 @@ export const createSale = async (data) => {
             : null,
 
         userId: Number(userId),
-
         totalAmount,
 
         status: "COMPLETED",
       },
     });
-
     // 7. Tạo OrderItem + trừ tồn kho
     for (const item of orderItems) {
       await tx.orderItem.create({
