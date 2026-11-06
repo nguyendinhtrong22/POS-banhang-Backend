@@ -8,21 +8,51 @@ import {
   remove,
 } from "../controllers/category.controller.js";
 
+import {
+  authMiddleware,
+  authorizeRole,
+} from "../middlewares/auth.middleware.js";
+
 const router = express.Router();
 
-// GET /api/categories
-router.get("/", getCategories);
+// ADMIN và STAFF: xem danh sách danh mục
+router.get(
+  "/",
+  authMiddleware,
+  authorizeRole("ADMIN", "STAFF"),
+  getCategories
+);
 
-// GET /api/categories/:id
-router.get("/:id", getCategory);
+// ADMIN và STAFF: xem chi tiết danh mục
+router.get(
+  "/:id",
+  authMiddleware,
+  authorizeRole("ADMIN", "STAFF"),
+  getCategory
+);
 
-// POST /api/categories
-router.post("/", create);
+// Chỉ ADMIN: tạo danh mục
+router.post(
+  "/",
+  authMiddleware,
+  authorizeRole("ADMIN"),
+  create
+);
 
-// PUT /api/categories/:id
-router.put("/:id", update);
+// Chỉ ADMIN: cập nhật danh mục
+router.put(
+  "/:id",
+  authMiddleware,
+  authorizeRole("ADMIN"),
+  update
+);
 
-// DELETE /api/categories/:id
-router.delete("/:id", remove);
+// Chỉ ADMIN: xóa danh mục
+router.delete(
+  "/:id",
+  authMiddleware,
+  authorizeRole("ADMIN"),
+  remove
+);
 
 export default router;

@@ -4,8 +4,18 @@ import {
   create,
 } from "../controllers/sales.controller.js";
 
+import {
+  authMiddleware,
+  authorizeRole,
+} from "../middlewares/auth.middleware.js";
+
 const router = express.Router();
 
-router.post("/", create);
-
+// ADMIN và STAFF: thực hiện bán hàng
+router.post(
+  "/",
+  authMiddleware,
+  authorizeRole("ADMIN", "STAFF"),
+  create
+);
 export default router;

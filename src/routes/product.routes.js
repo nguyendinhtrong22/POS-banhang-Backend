@@ -1,3 +1,4 @@
+
 import express from "express";
 
 import {
@@ -8,21 +9,51 @@ import {
   remove,
 } from "../controllers/product.controller.js";
 
+import {
+  authMiddleware,
+  authorizeRole,
+} from "../middlewares/auth.middleware.js";
+
 const router = express.Router();
 
-// GET /api/products
-router.get("/", getProducts);
+// ADMIN và STAFF: xem danh sách sản phẩm
+router.get(
+  "/",
+  authMiddleware,
+  authorizeRole("ADMIN", "STAFF"),
+  getProducts
+);
 
-// GET /api/products/:id
-router.get("/:id", getProduct);
+// ADMIN và STAFF: xem chi tiết sản phẩm
+router.get(
+  "/:id",
+  authMiddleware,
+  authorizeRole("ADMIN", "STAFF"),
+  getProduct
+);
 
-// POST /api/products
-router.post("/", create);
+// Chỉ ADMIN: thêm sản phẩm
+router.post(
+  "/",
+  authMiddleware,
+  authorizeRole("ADMIN"),
+  create
+);
 
-// PUT /api/products/:id
-router.put("/:id", update);
+// Chỉ ADMIN: cập nhật sản phẩm
+router.put(
+  "/:id",
+  authMiddleware,
+  authorizeRole("ADMIN"),
+  update
+);
 
-// DELETE /api/products/:id
-router.delete("/:id", remove);
+// Chỉ ADMIN: xóa sản phẩm
+router.delete(
+  "/:id",
+  authMiddleware,
+  authorizeRole("ADMIN"),
+  remove
+);
 
 export default router;
